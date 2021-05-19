@@ -11,5 +11,5 @@ import java.util.Optional;
 public interface CameraRepository extends MongoRepository<Camera, ObjectId> {
     List<Camera> findAll();
 
-    Optional<Camera> findById(ObjectId id);
+    Optional<Camera> findById(String id);
 }

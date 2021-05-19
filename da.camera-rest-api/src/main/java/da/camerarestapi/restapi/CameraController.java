@@ -8,22 +8,22 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-
+@CrossOrigin(origins = "http://localhost:8081")
 @RestController
-@RequestMapping(value = "camera/")
+@RequestMapping(value = "cameras")
 public class CameraController {
 
     @Autowired
     private CameraService cameraService;
 
-    @GetMapping(value = "cameras")
+    @GetMapping(value = "/")
     public ResponseEntity<List<Camera>> findAllCameras(){
         return new ResponseEntity<>(cameraService.findAll(), HttpStatus.OK);
 
     }
 
-    @GetMapping(path = "{id}")
-    public ResponseEntity<Optional<Camera>> findById(@RequestParam ObjectId id){
+    @GetMapping(value = "{id}")
+    public ResponseEntity<Optional<Camera>> findById(@PathVariable String id){
         return new ResponseEntity<>(cameraService.findById(id), HttpStatus.OK);
     }
 

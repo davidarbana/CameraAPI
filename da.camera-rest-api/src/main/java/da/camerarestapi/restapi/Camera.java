@@ -14,7 +14,7 @@ public class Camera {
 
     @Id
     @NonNull
-    private ObjectId id;
+    private String id;
     private String name;
     private String model;
     private String resolution;

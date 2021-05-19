@@ -18,7 +18,7 @@ public class CameraService {
         return listCamera;
     }
 
-    public Optional<Camera> findById(ObjectId id) {
+    public Optional<Camera> findById(String id) {
         Optional<Camera> camera = cameraRepository.findById(id);
         return camera;
     }
