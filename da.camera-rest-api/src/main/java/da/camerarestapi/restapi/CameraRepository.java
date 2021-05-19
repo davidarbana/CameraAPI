@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface CameraRepository extends MongoRepository<Camera, ObjectId> {
+public interface CameraRepository extends MongoRepository<Camera, String> {
     List<Camera> findAll();
 
     Optional<Camera> findById(String id);
