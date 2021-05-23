@@ -1,14 +1,11 @@
 package da.camerarestapi.restapi;
-
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
-@CrossOrigin(origins = "http://localhost:8081")
+@CrossOrigin(origins = "http://localhost:8082")
 @RestController
 @RequestMapping(value = "cameras")
 public class CameraController {
@@ -23,12 +20,24 @@ public class CameraController {
     }
 
     @GetMapping(value = "{id}")
-    public ResponseEntity<Optional<Camera>> findById(@PathVariable String id){
+    public ResponseEntity<Camera> findById(@PathVariable String id){
         return new ResponseEntity<>(cameraService.findById(id), HttpStatus.OK);
     }
 
-    @PostMapping(path = "/")
+    @PostMapping(value = "/")
     public ResponseEntity<Camera> createCamera(@RequestBody Camera camera){
         return new ResponseEntity<>(cameraService.createCamera(camera), HttpStatus.OK);
+    }
+
+    @PutMapping(value = "{id}")
+    public ResponseEntity<String> updateCamera(@RequestBody Camera camera, @PathVariable("id") String id){
+        cameraService.updateCamera(camera, id);
+        return new ResponseEntity<>("Camera updated", HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "{id}")
+    public ResponseEntity<String> deleteCamera(@PathVariable("id") String id){
+        cameraService.deleteCamera(id);
+        return new ResponseEntity<>("Camera deleted", HttpStatus.OK);
     }
 }

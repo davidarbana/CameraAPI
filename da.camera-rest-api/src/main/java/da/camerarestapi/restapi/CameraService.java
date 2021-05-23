@@ -1,11 +1,9 @@
 package da.camerarestapi.restapi;
 
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CameraService {
@@ -18,16 +16,25 @@ public class CameraService {
         return listCamera;
     }
 
-    public Optional<Camera> findById(String id) {
-        Optional<Camera> camera = cameraRepository.findById(id);
+    public Camera findById(String id) {
+        Camera camera = cameraRepository.findByStringId(id);
         return camera;
     }
 
     public Camera createCamera(Camera camera) {
-        Optional<Camera> cameraOptional = cameraRepository.findById(camera.getId());
-        if(cameraOptional.isPresent()){
-            throw new IllegalStateException("Id taken");
-        }
         return cameraRepository.save(camera);
+    }
+
+    public void updateCamera(Camera camera, String id) {
+        Camera cameraOptional = cameraRepository.findByStringId(id);
+        cameraOptional.setName(camera.getName());
+        cameraOptional.setModel(camera.getModel());
+        cameraRepository.save(camera);
+    }
+
+    public void deleteCamera(String id) {
+        boolean exists = cameraRepository.existsById(id);
+        if(!exists){throw new IllegalStateException("camera with id" + id +" does not exist");}
+        cameraRepository.deleteById(id);
     }
 }
