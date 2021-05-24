@@ -19,6 +19,14 @@ public class Camera {
     private String ip;
 
 
+    public String get_id() {
+        return _id;
+    }
+
+    public void set_id(String _id) {
+        this._id = _id;
+    }
+
     public String getStringId() {
         return stringId;
     }
